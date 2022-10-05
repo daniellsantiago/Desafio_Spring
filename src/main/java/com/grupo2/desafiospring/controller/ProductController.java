@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -20,9 +20,10 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/insert-articles-request")
-    public ResponseEntity<List<ProductDTO>> setProduct(@RequestBody List<Product> product) throws IOException {
-        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.CREATED);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<ProductDTO> setProduct(@RequestBody List<Product> product) throws IOException {
+        return productService.addProduct(product);
     }
 
 }

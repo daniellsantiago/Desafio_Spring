@@ -27,11 +27,7 @@ public class ProductRepository {
     }
 
     public List<Product> getAllProducts() throws IOException {
-        try{
-            return Arrays.asList(objectMapper.readValue(new File(PATH_NAME), Product[].class));
-        } catch (IOException e){
-            throw new NotFoundException("Arquivo inexistente ou caminho desconhecido.");
-        }
+        return Arrays.asList(objectMapper.readValue(new File(PATH_NAME), Product[].class));
     }
 
     public List<Product> addProductRepository(List<Product> product) throws IOException {
@@ -39,12 +35,7 @@ public class ProductRepository {
         List<Product> productList = new ArrayList<>(getAllProducts());
 
         productList.addAll(product);
-        try{
-            writer.writeValue(new File(PATH_NAME), productList);
-        } catch (Exception e){
-            // TODO: pensar sobre exceção de armazenamento interno
-        }
-
+        writer.writeValue(new File(PATH_NAME), productList);
 
         return product;
     }
