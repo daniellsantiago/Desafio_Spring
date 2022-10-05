@@ -27,13 +27,15 @@ public class ProductRepository {
         return products.stream()
                 .filter(product -> {
                     if (params.getFreeShipping() != null && params.getPrestige() != null) {
-                        return product.getFreeShipping() == params.getFreeShipping() && params.getPrestige().equals(product.getPrestige());
+                        return product.getFreeShipping() == params.getFreeShipping()
+                                && params.getPrestige().equals(product.getPrestige());
                     }
                     if (params.getCategory() != null && params.getFreeShipping() != null) {
-                        return params.getCategory().equals(product.getCategory()) && product.getFreeShipping() == params.getFreeShipping();
+                        return params.getCategory().equalsIgnoreCase(product.getCategory())
+                                && product.getFreeShipping() == params.getFreeShipping();
                     }
                     if (params.getCategory() != null) {
-                        return params.getCategory().equals(product.getCategory());
+                        return params.getCategory().equalsIgnoreCase(product.getCategory());
                     }
                     return true;
                 })

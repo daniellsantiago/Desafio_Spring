@@ -11,5 +11,5 @@ public class ListProductParamsDto {
     private String category;
     private Boolean freeShipping;
     private String prestige;
-    private int order;
+    private Integer order;
 }
