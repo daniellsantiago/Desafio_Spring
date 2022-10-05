@@ -1,10 +1,12 @@
 package com.grupo2.desafiospring.controller;
 
 import com.grupo2.desafiospring.dto.ProductDTO;
+import com.grupo2.desafiospring.model.Cart;
 import com.grupo2.desafiospring.model.Product;
+import com.grupo2.desafiospring.model.ProductPurchase;
+import com.grupo2.desafiospring.service.CartService;
 import com.grupo2.desafiospring.service.ProductService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -15,15 +17,23 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final CartService cartService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, CartService cartService) {
         this.productService = productService;
+        this.cartService = cartService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public List<ProductDTO> setProduct(@RequestBody List<Product> product) throws IOException {
         return productService.addProduct(product);
+    }
+
+    @PostMapping("/purchase")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cart setCart(@RequestBody List<ProductPurchase> purchaseList) {
+        return cartService.setCart(purchaseList);
     }
 
 }
