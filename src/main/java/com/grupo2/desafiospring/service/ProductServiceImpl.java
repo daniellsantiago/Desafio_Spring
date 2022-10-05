@@ -1,5 +1,6 @@
 package com.grupo2.desafiospring.service;
 
+import com.grupo2.desafiospring.dto.ListProductParamsDto;
 import com.grupo2.desafiospring.exception.InternalServerErrorException;
 import com.grupo2.desafiospring.model.Product;
 import com.grupo2.desafiospring.repository.ProductRepository;
@@ -18,11 +19,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> listProducts() {
+    public List<Product> listProducts(ListProductParamsDto params) {
         try {
-            return productRepository.getAllProducts();
+            return productRepository.getAllProducts(params);
         } catch (IOException e) {
             throw new InternalServerErrorException("Error trying to read products");
         }
+    }
+
+    @Override
+    public List<Product> filter() {
+        return null;
     }
 }
