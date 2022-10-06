@@ -27,13 +27,13 @@ public class ProductRepository {
         return Arrays.asList(objectMapper.readValue(new File(PATH_NAME), Product[].class));
     }
 
-    public List<Product> addProductRepository(List<Product> product) throws IOException {
+    public List<Product> addProducts(List<Product> products) throws IOException {
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
         List<Product> productList = new ArrayList<>(getAllProducts());
 
-        productList.addAll(product);
+        productList.addAll(products);
         writer.writeValue(new File(PATH_NAME), productList);
 
-        return product;
+        return products;
     }
 }
