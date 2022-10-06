@@ -2,6 +2,7 @@ package com.grupo2.desafiospring.service;
 
 import com.grupo2.desafiospring.dto.ListProductParamsDto;
 import com.grupo2.desafiospring.dto.ProductDTO;
+import com.grupo2.desafiospring.exception.BusinessRuleException;
 import com.grupo2.desafiospring.exception.InternalServerErrorException;
 import com.grupo2.desafiospring.model.Product;
 import com.grupo2.desafiospring.repository.ProductRepository;
@@ -23,10 +24,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDTO> addProduct(List<Product> product) {
+        try{
+            return ProductDTO.convertDto(productRepository.addProductRepository(product));
+        } catch (IOException ex){
+            throw new InternalServerErrorException("Error trying to write products");
+        }
+    }
+
+    @Override
     public List<Product> listProducts(ListProductParamsDto params) {
         try {
             List<Product> products = productRepository.getAllProducts();
-            if (!params.hasAnyFilterParam() || !params.hasAnySortParam()) {
+            if (!params.hasAnyFilterParam() && !params.hasAnySortParam()) {
                 return products;
             }
             Stream<Product> filteredProducts = filterProducts(products.stream(), params);
@@ -37,45 +47,32 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    @Override
-    public List<ProductDTO> addProduct(List<Product> product) {
-        try{
-            return ProductDTO.convertDto(productRepository.addProductRepository(product));
-        } catch (IOException ex){
-            throw new InternalServerErrorException("Error trying to write products");
-        }
-
-    }
-
-    private List<Product> listProductsOrder(int paramOrder, List<Product> products) {
-        if(paramOrder == 0) return listProductsAsc(products);
-        if(paramOrder == 1) return listProductsDesc(products);
-        if(paramOrder == 2) return listProductsHigherPrice(products);
-        if(paramOrder == 3) return listProductsSmallerPrice(products);
-
+    private Stream<Product> filterProducts(Stream<Product> products, ListProductParamsDto params) {
         return products.filter(product -> {
-                    if (params.getFreeShipping() != null && params.getPrestige() != null) {
-                        return product.getFreeShipping() == params.getFreeShipping()
-                                && params.getPrestige().equals(product.getPrestige());
-                    }
-                    if (params.getCategory() != null && params.getFreeShipping() != null) {
-                        return params.getCategory().equalsIgnoreCase(product.getCategory())
-                                && product.getFreeShipping() == params.getFreeShipping();
-                    }
-                    if (params.getCategory() != null) {
-                        return params.getCategory().equalsIgnoreCase(product.getCategory());
-                    }
-                    return true;
-                });
+            if (params.getFreeShipping() != null && params.getPrestige() != null) {
+                return product.getFreeShipping() == params.getFreeShipping()
+                        && params.getPrestige().equals(product.getPrestige());
+            }
+            if (params.getCategory() != null && params.getFreeShipping() != null) {
+                return params.getCategory().equalsIgnoreCase(product.getCategory())
+                        && product.getFreeShipping() == params.getFreeShipping();
+            }
+            if (params.getCategory() != null) {
+                return params.getCategory().equalsIgnoreCase(product.getCategory());
+            }
+            return true;
+        });
     }
 
     private Stream<Product> sortProducts(Integer paramOrder, Stream<Product> products) {
+        if (paramOrder == null) return products;
+
         if(paramOrder == 0) return sortProductsByCategoryAsc(products);
         if(paramOrder == 1) return sortProductsByCategoryDesc(products);
         if(paramOrder == 2) return sortProductsByHighestPrice(products);
         if(paramOrder == 3) return sortProductsByLowestPrice(products);
 
-        return products;
+        throw new BusinessRuleException("Invalid param order provided");
     }
 
     private Stream<Product> sortProductsByCategoryAsc(Stream<Product> products) {
