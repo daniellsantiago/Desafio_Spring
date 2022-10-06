@@ -12,4 +12,12 @@ public class ListProductParamsDto {
     private Boolean freeShipping;
     private String prestige;
     private Integer order;
+
+    public boolean hasAnyFilterParam() {
+        return this.category != null || this.freeShipping != null || this.prestige != null;
+    }
+
+    public boolean hasAnySortParam() {
+        return this.order != null;
+    }
 }
