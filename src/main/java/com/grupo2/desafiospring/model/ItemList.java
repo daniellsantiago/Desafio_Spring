@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductPurchase {
-    private Long productId;
-    private Integer quantity;
+public class ItemList {
+    private List<ProductPurchase> articlesPurchaseRequest;
 }

@@ -1,11 +1,11 @@
 package com.grupo2.desafiospring.service;
 
-import com.grupo2.desafiospring.model.Cart;
-import com.grupo2.desafiospring.model.ProductPurchase;
+import com.grupo2.desafiospring.model.*;
 
+import java.io.IOException;
 import java.util.List;
 
 
 public interface CartService {
-    Cart setCart(List<ProductPurchase> purchaseList);
+    Ticket setCart(ItemList itemList) throws Exception;
 }
