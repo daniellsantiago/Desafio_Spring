@@ -3,13 +3,10 @@ package com.grupo2.desafiospring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.grupo2.desafiospring.dto.ProductDTO;
-import com.grupo2.desafiospring.exception.NotFoundException;
 import com.grupo2.desafiospring.dto.ListProductParamsDto;
 import com.grupo2.desafiospring.model.Product;
 import org.springframework.stereotype.Repository;
 
-import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +27,9 @@ public class ProductRepository {
 
     public List<Product> getAllProducts(ListProductParamsDto params) throws IOException {
         List<Product> products = Arrays.asList(objectMapper.readValue(new File(PATH_NAME), Product[].class));
+        if (params == null){
+            return products;
+        }
         return products.stream()
                 .filter(product -> {
                     if (params.getFreeShipping() != null && params.getPrestige() != null) {
@@ -50,7 +50,7 @@ public class ProductRepository {
 
     public List<Product> addProductRepository(List<Product> product) throws IOException {
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
-        List<Product> productList = new ArrayList<>(getAllProducts());
+        List<Product> productList = new ArrayList<>(getAllProducts(null));
 
         productList.addAll(product);
         writer.writeValue(new File(PATH_NAME), productList);

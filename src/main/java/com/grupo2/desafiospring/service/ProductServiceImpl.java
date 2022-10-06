@@ -1,9 +1,8 @@
 package com.grupo2.desafiospring.service;
 
-import com.grupo2.desafiospring.dto.ProductDTO;
 import com.grupo2.desafiospring.dto.ListProductParamsDto;
+import com.grupo2.desafiospring.dto.ProductDTO;
 import com.grupo2.desafiospring.exception.InternalServerErrorException;
-import com.grupo2.desafiospring.exception.NotFoundException;
 import com.grupo2.desafiospring.model.Product;
 import com.grupo2.desafiospring.repository.ProductRepository;
 import org.springframework.stereotype.Service;

@@ -22,11 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     private final ProductService productService;
-    private final CartService cartService;
 
-    public ProductController(ProductService productService, CartService cartService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.cartService = cartService;
     }
 
     @PostMapping
@@ -34,13 +32,6 @@ public class ProductController {
     public List<ProductDTO> setProduct(@RequestBody List<Product> product) throws IOException {
         return productService.addProduct(product);
     }
-
-    @PostMapping("/purchase")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Cart setCart(@RequestBody List<ProductPurchase> purchaseList) {
-        return cartService.setCart(purchaseList);
-    }
-
 
     @GetMapping
     public List<Product> getProducts(ListProductParamsDto params) {
