@@ -3,6 +3,7 @@ package com.grupo2.desafiospring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.grupo2.desafiospring.exception.NotFoundException;
 import com.grupo2.desafiospring.model.Product;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductRepository {
@@ -35,5 +37,20 @@ public class ProductRepository {
         writer.writeValue(new File(PATH_NAME), productList);
 
         return products;
+    }
+
+    public List<Product> patchProduct(Long id, Integer quantity) throws IOException {
+        ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
+        List<Product> productList = new ArrayList<>(getAllProducts());
+
+        Product product = productList.stream()
+                .filter(p -> p.getProductId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("Produto com esse ID não encontrado."));
+
+        product.setQuantity(product.getQuantity() - quantity);
+        writer.writeValue(new File(PATH_NAME), productList);
+
+        return productList;
     }
 }
