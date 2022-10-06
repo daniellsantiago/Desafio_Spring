@@ -1,6 +1,5 @@
 package com.grupo2.desafiospring.dto;
 
-import com.grupo2.desafiospring.model.Cart;
 import com.grupo2.desafiospring.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +33,7 @@ public class CartProductDTO {
         this.prestige = product.getPrestige();
     }
 
-    public static List<CartProductDTO> convertDto(List<Product> articles) {
+    public static List<CartProductDTO> fromCartList(List<Product> articles) {
         return articles.stream().map(CartProductDTO::new).collect(Collectors.toList());
     }
 }

@@ -10,5 +10,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemList {
-    private List<ProductPurchase> articlesPurchaseRequest;
+    private List<ProductPurchase> productsPurchaseRequest;
 }

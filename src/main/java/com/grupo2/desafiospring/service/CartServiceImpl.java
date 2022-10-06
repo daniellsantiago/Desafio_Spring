@@ -5,62 +5,49 @@ import com.grupo2.desafiospring.exception.BusinessRuleException;
 import com.grupo2.desafiospring.exception.InternalServerErrorException;
 import com.grupo2.desafiospring.exception.NotFoundException;
 import com.grupo2.desafiospring.model.*;
-import com.grupo2.desafiospring.repository.CartRepository;
 import com.grupo2.desafiospring.repository.ProductRepository;
+import com.grupo2.desafiospring.repository.TicketRepository;
+import com.grupo2.desafiospring.utils.IdGenerator;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CartServiceImpl implements CartService{
 
     private final ProductRepository productRepository;
-    private final CartRepository cartRepository;
+    private final TicketRepository ticketRepository;
 
-    public CartServiceImpl(ProductRepository productRepository, CartRepository cartRepository) {
+    public CartServiceImpl(ProductRepository productRepository, TicketRepository ticketRepository) {
         this.productRepository = productRepository;
-        this.cartRepository = cartRepository;
+        this.ticketRepository = ticketRepository;
     }
 
 
     @Override
-    public Ticket setCart(ItemList itemList) throws Exception {
-        /*
-         *  TODO: abrir a lista e consultar os produtos; #Feito
-         *  TODO: set da quantidade da compra de acordo com o passado; #Feito
-         *  TODO: gerar id random; #Feito
-         *  TODO: calcular total de acordo com a quantidade; #Feito
-         *  TODO: tratar as exceções; #Feito
-         *  TODO: retornar os status code corretos (404, 500, 200); #Feito
-         *  TODO: add no repositorio cart;
-         *  TODO: controle de estoque;
-         */
+    public Ticket setCart(ItemList itemList) {
+
         List<CartProductDTO> products = getProductsCart(itemList);
-        int idRandom = getRandomNumberInRange(10000, 99999);
-        Double total = 0.0;
-        for (CartProductDTO p :
-                products) {
-            total += calcTotal(p.getQuantity(), p.getPrice());
-        }
+        Long id = IdGenerator.generateIdByClass(Cart.class);
+        Double total = getTotal(products);
+        return generateTicket(id, products, total);
 
-        return new Ticket(new Cart(idRandom, products, total));
     }
-
     private List<CartProductDTO> getProductsCart(ItemList itemList) {
-        List<Product> productList;
 
+        List<Product> productList;
         try{
-             productList = productRepository.getAllProducts(null);
+             productList = productRepository.getAllProducts();
         } catch (IOException ex){
             throw new InternalServerErrorException("Erro ao ler arquivo de repositório dos produtos");
         }
 
         List<Product> productsCart = new ArrayList<>();
-
-        for (ProductPurchase pp: itemList.getArticlesPurchaseRequest()) {
+        for (ProductPurchase pp : itemList.getProductsPurchaseRequest()) {
             Product product = productList.stream()
                     .filter(p -> Objects.equals(pp.getProductId(), p.getProductId()))
                     .findFirst()
@@ -74,20 +61,33 @@ public class CartServiceImpl implements CartService{
             productsCart.add(product);
         }
 
-        return CartProductDTO.convertDto(productsCart);
+        return CartProductDTO.fromCartList(productsCart);
+    }
+
+    private Double getTotal(List<CartProductDTO> products){
+        Double total = 0.0;
+        for (CartProductDTO p : products) {
+            total += calcTotal(p.getQuantity(), p.getPrice());
+            try{
+                productRepository.patchProduct(p.getProductId(), p.getQuantity());
+            } catch(IOException ex){
+                throw new InternalServerErrorException("Erro ao salvar o ticket no arquivo.");
+            }
+        }
+        return total;
     }
 
     private Double calcTotal(Integer quantity, BigDecimal price){
         return price.multiply(BigDecimal.valueOf(quantity)).doubleValue();
     }
 
-    private int getRandomNumberInRange(int min, int max) {
-
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
+    private Ticket generateTicket(Long id, List<CartProductDTO> products, Double total) {
+        Ticket ticket = new Ticket(new Cart(id, products, total));
+        try{
+            ticketRepository.addTicket(ticket);
+        } catch (IOException ex){
+            throw new InternalServerErrorException("Erro ao salvar o ticket no arquivo.");
         }
-
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
+        return ticket;
     }
 }
