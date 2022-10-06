@@ -1,6 +1,7 @@
 package com.grupo2.desafiospring.service;
 
 import com.grupo2.desafiospring.dto.ListProductParamsDto;
+import com.grupo2.desafiospring.dto.ProductDTO;
 import com.grupo2.desafiospring.exception.InternalServerErrorException;
 import com.grupo2.desafiospring.model.Product;
 import com.grupo2.desafiospring.repository.ProductRepository;
@@ -36,10 +37,21 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    private Stream<Product> filterProducts(Stream<Product> products, ListProductParamsDto params) {
-        if (!params.hasAnyFilterParam()) {
-            return products;
+    @Override
+    public List<ProductDTO> addProduct(List<Product> product) {
+        try{
+            return ProductDTO.convertDto(productRepository.addProductRepository(product));
+        } catch (IOException ex){
+            throw new InternalServerErrorException("Error trying to write products");
         }
+
+    }
+
+    private List<Product> listProductsOrder(int paramOrder, List<Product> products) {
+        if(paramOrder == 0) return listProductsAsc(products);
+        if(paramOrder == 1) return listProductsDesc(products);
+        if(paramOrder == 2) return listProductsHigherPrice(products);
+        if(paramOrder == 3) return listProductsSmallerPrice(products);
 
         return products.filter(product -> {
                     if (params.getFreeShipping() != null && params.getPrestige() != null) {
