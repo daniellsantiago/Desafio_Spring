@@ -1,5 +1,6 @@
 package com.grupo2.desafiospring.controller;
 
+import com.grupo2.desafiospring.dto.ListProductParamsDto;
 import com.grupo2.desafiospring.dto.ProductDTO;
 import com.grupo2.desafiospring.model.Cart;
 import com.grupo2.desafiospring.model.Product;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -36,4 +41,9 @@ public class ProductController {
         return cartService.setCart(purchaseList);
     }
 
+
+    @GetMapping
+    public List<Product> getProducts(ListProductParamsDto params) {
+        return productService.listProducts(params);
+    }
 }
