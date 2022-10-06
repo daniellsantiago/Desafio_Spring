@@ -7,7 +7,6 @@ import com.grupo2.desafiospring.exception.NotFoundException;
 import com.grupo2.desafiospring.model.*;
 import com.grupo2.desafiospring.repository.ProductRepository;
 import com.grupo2.desafiospring.repository.TicketRepository;
-import com.grupo2.desafiospring.utils.IdGenerator;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -30,13 +30,12 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Ticket setCart(ItemList itemList) {
-
         List<CartProductDTO> products = getProductsCart(itemList);
-        Long id = IdGenerator.generateIdByClass(Cart.class);
-        Double total = getTotal(products);
-        return generateTicket(id, products, total);
 
+        Double total = getTotal(products);
+        return generateTicket(UUID.randomUUID(), products, total);
     }
+
     private List<CartProductDTO> getProductsCart(ItemList itemList) {
 
         List<Product> productList;
@@ -81,7 +80,7 @@ public class CartServiceImpl implements CartService{
         return price.multiply(BigDecimal.valueOf(quantity)).doubleValue();
     }
 
-    private Ticket generateTicket(Long id, List<CartProductDTO> products, Double total) {
+    private Ticket generateTicket(UUID id, List<CartProductDTO> products, Double total) {
         Ticket ticket = new Ticket(new Cart(id, products, total));
         try{
             ticketRepository.addTicket(ticket);

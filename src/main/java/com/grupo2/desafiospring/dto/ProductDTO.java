@@ -4,11 +4,12 @@ import com.grupo2.desafiospring.model.Product;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Data
 public class ProductDTO {
-    private Long productId;
+    private UUID productId;
     private String name;
     private Integer quantity;
 

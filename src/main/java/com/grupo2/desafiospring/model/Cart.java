@@ -6,12 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cart {
-    private Long id;
+    private UUID id;
     private List<CartProductDTO> products;
     private Double total;
 }
