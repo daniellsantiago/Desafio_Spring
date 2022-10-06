@@ -2,10 +2,12 @@ package com.grupo2.desafiospring.service;
 
 import com.grupo2.desafiospring.dto.ListProductParamsDto;
 import com.grupo2.desafiospring.dto.ProductDTO;
+import com.grupo2.desafiospring.dto.RegisterProductDto;
 import com.grupo2.desafiospring.exception.BusinessRuleException;
 import com.grupo2.desafiospring.exception.InternalServerErrorException;
 import com.grupo2.desafiospring.model.Product;
 import com.grupo2.desafiospring.repository.ProductRepository;
+import com.grupo2.desafiospring.utils.IdGenerator;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -24,9 +26,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> addProduct(List<Product> product) {
+    public List<ProductDTO> addProduct(List<RegisterProductDto> registerProductDtos) {
+        List<Product> productsToBeAdded = registerProductDtos.stream()
+                .map(dto -> dto.toProduct(IdGenerator.generateIdByClass(Product.class)))
+                .collect(Collectors.toList());
         try{
-            return ProductDTO.convertDto(productRepository.addProductRepository(product));
+            return ProductDTO.fromProductList(productRepository.addProducts(productsToBeAdded));
         } catch (IOException ex){
             throw new InternalServerErrorException("Error trying to write products");
         }
@@ -67,19 +72,19 @@ public class ProductServiceImpl implements ProductService {
     private Stream<Product> sortProducts(Integer paramOrder, Stream<Product> products) {
         if (paramOrder == null) return products;
 
-        if(paramOrder == 0) return sortProductsByCategoryAsc(products);
-        if(paramOrder == 1) return sortProductsByCategoryDesc(products);
+        if(paramOrder == 0) return sortProductsByNameAsc(products);
+        if(paramOrder == 1) return sortProductsByNameDesc(products);
         if(paramOrder == 2) return sortProductsByHighestPrice(products);
         if(paramOrder == 3) return sortProductsByLowestPrice(products);
 
         throw new BusinessRuleException("Invalid param order provided");
     }
 
-    private Stream<Product> sortProductsByCategoryAsc(Stream<Product> products) {
+    private Stream<Product> sortProductsByNameAsc(Stream<Product> products) {
         return products.sorted(Comparator.comparing(Product::getName));
     }
 
-    private Stream<Product> sortProductsByCategoryDesc(Stream<Product> products) {
+    private Stream<Product> sortProductsByNameDesc(Stream<Product> products) {
         return products.sorted(Comparator.comparing(Product::getName).reversed());
     }
 
