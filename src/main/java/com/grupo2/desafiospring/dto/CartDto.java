@@ -1,4 +1,4 @@
-package com.grupo2.desafiospring.model;
+package com.grupo2.desafiospring.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +10,8 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart {
+public class CartDto {
     private UUID id;
-    private List<Product> products;
+    private List<CartProductDTO> products;
     private Double total;
 }

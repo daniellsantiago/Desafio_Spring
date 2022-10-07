@@ -1,11 +1,9 @@
 package com.grupo2.desafiospring.service;
 
-import com.grupo2.desafiospring.model.Cart;
-import com.grupo2.desafiospring.model.ProductPurchase;
-
-import java.util.List;
+import com.grupo2.desafiospring.dto.ProductPurchaseListDto;
+import com.grupo2.desafiospring.dto.TicketDto;
 
 
 public interface CartService {
-    Cart setCart(List<ProductPurchase> purchaseList);
+    TicketDto setCart(ProductPurchaseListDto productPurchaseListDto);
 }

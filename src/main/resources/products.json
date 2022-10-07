@@ -1,5 +1,5 @@
 [ {
-  "productId" : 1,
+  "productId" : "858dd245-d9c2-4062-92b1-75d5417e44f6",
   "name" : "Serra de Bancada",
   "category" : "Ferramentas",
   "brand" : "FORTGPRO",
@@ -8,7 +8,7 @@
   "freeShipping" : true,
   "prestige" : "****"
 }, {
-  "productId" : 2,
+  "productId" : "2722b0ab-9bb3-46b0-a432-ebdcd53fb8b2",
   "name" : "Furadeira",
   "category" : "Ferramentas",
   "brand" : "Black & Decker",
@@ -17,7 +17,7 @@
   "freeShipping" : true,
   "prestige" : "****"
 }, {
-  "productId" : 3,
+  "productId" : "117baf34-7b3c-4d09-b6d0-194b196985a0",
   "name" : "Soldadora",
   "category" : "Ferramentas",
   "brand" : "Black & Decker",
@@ -26,7 +26,7 @@
   "freeShipping" : true,
   "prestige" : "***"
 }, {
-  "productId" : 4,
+  "productId" : "69d75835-b2d0-4e03-9872-1081b4a43c80",
   "name" : "Chuteira",
   "category" : "Esportes",
   "brand" : "Adidas",
@@ -35,7 +35,7 @@
   "freeShipping" : true,
   "prestige" : "*****"
 }, {
-  "productId" : 5,
+  "productId" : "37d6cc1b-5585-4855-954f-1176e3a40b06",
   "name" : "Mini Cama elastica",
   "category" : "Esportes",
   "brand" : "Starboard",
@@ -44,25 +44,25 @@
   "freeShipping" : true,
   "prestige" : "*****"
 }, {
-  "productId" : 6,
+  "productId" : "0807473b-ba81-461e-842b-45b4781c28b8",
   "name" : "Camiseta",
   "category" : "Esportes",
   "brand" : "Topper",
   "price" : 80.00,
-  "quantity" : 2,
+  "quantity" : 0,
   "freeShipping" : false,
   "prestige" : "***"
 }, {
-  "productId" : 7,
+  "productId" : "41348b92-9472-4d91-aa59-e0898f9aa98b",
   "name" : "Redmi Note 9",
   "category" : "Celulares",
   "brand" : "Xiaomi",
   "price" : 2800.00,
-  "quantity" : 15,
+  "quantity" : 14,
   "freeShipping" : true,
   "prestige" : "****"
 }, {
-  "productId" : 8,
+  "productId" : "b788b646-f8a5-43d9-8240-993d39bd928c",
   "name" : "Smartwatch",
   "category" : "Celulares",
   "brand" : "Noga",
@@ -71,7 +71,7 @@
   "freeShipping" : true,
   "prestige" : "**"
 }, {
-  "productId" : 9,
+  "productId" : "7460286a-2a1b-41be-9450-09649df603d9",
   "name" : "Camisa",
   "category" : "Roupas",
   "brand" : "Fila",
@@ -80,7 +80,7 @@
   "freeShipping" : false,
   "prestige" : "***"
 }, {
-  "productId" : 10,
+  "productId" : "38bf1bc4-b78c-4eba-a343-9581f31457df",
   "name" : "Calcas",
   "category" : "Roupas",
   "brand" : "Oakley",
@@ -89,7 +89,7 @@
   "freeShipping" : false,
   "prestige" : "***"
 }, {
-  "productId" : 11,
+  "productId" : "216ccb18-13ed-46c9-ba5b-bce28b3ae7e1",
   "name" : "Meias",
   "category" : "Roupas",
   "brand" : "Gonew",
@@ -98,7 +98,7 @@
   "freeShipping" : false,
   "prestige" : "*"
 }, {
-  "productId" : 12,
+  "productId" : "e05e5812-9da3-4805-a387-1211e45c8474",
   "name" : "Shorts",
   "category" : "Roupas",
   "brand" : "Lacoste",
@@ -106,121 +106,5 @@
   "quantity" : 9,
   "freeShipping" : true,
   "prestige" : "***"
-}, {
-  "productId" : 1,
-  "name" : "Serra de Bancada",
-  "category" : "Ferramentas",
-  "brand" : "FORTGPRO",
-  "price" : 1800.00,
-  "quantity" : 5,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 1,
-  "name" : "Serra de Bancada",
-  "category" : "Ferramentas",
-  "brand" : "FORTGPRO",
-  "price" : 1800.00,
-  "quantity" : 5,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 1,
-  "name" : "Serra de Bancada",
-  "category" : "Ferramentas",
-  "brand" : "FORTGPRO",
-  "price" : 1800.00,
-  "quantity" : 5,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 1,
-  "name" : "Serra de Bancada",
-  "category" : "Ferramentas",
-  "brand" : "FORTGPRO",
-  "price" : 1800.00,
-  "quantity" : 5,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 2,
-  "name" : "Furadeira",
-  "category" : "Ferramentas",
-  "brand" : "Black & Decker",
-  "price" : 500.00,
-  "quantity" : 7,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 1,
-  "name" : "Serra de Bancada",
-  "category" : "Ferramentas",
-  "brand" : "FORTGPRO",
-  "price" : 1800.00,
-  "quantity" : 5,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 2,
-  "name" : "Furadeira",
-  "category" : "Ferramentas",
-  "brand" : "Black & Decker",
-  "price" : 500.00,
-  "quantity" : 7,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 1,
-  "name" : "Serra de Bancada",
-  "category" : "Ferramentas",
-  "brand" : "FORTGPRO",
-  "price" : 1800.00,
-  "quantity" : 5,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 2,
-  "name" : "Furadeira",
-  "category" : "Ferramentas",
-  "brand" : "Black & Decker",
-  "price" : 500.00,
-  "quantity" : 7,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 1,
-  "name" : "Serra de Bancada",
-  "category" : "Ferramentas",
-  "brand" : "FORTGPRO",
-  "price" : 1800.00,
-  "quantity" : 5,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 2,
-  "name" : "Furadeira",
-  "category" : "Ferramentas",
-  "brand" : "Black & Decker",
-  "price" : 500.00,
-  "quantity" : 7,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 1,
-  "name" : "Serra de Bancada",
-  "category" : "Ferramentas",
-  "brand" : "FORTGPRO",
-  "price" : 1800.00,
-  "quantity" : 5,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 2,
-  "name" : "Furadeira",
-  "category" : "Ferramentas",
-  "brand" : "Black & Decker",
-  "price" : 500.00,
-  "quantity" : 7,
-  "freeShipping" : true,
-  "prestige" : "****"
-} ]
+}
+]

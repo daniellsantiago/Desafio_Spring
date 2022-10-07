@@ -2,23 +2,21 @@ package com.grupo2.desafiospring.controller;
 
 import com.grupo2.desafiospring.dto.ListProductParamsDto;
 import com.grupo2.desafiospring.dto.ProductDTO;
-import com.grupo2.desafiospring.model.Cart;
+import com.grupo2.desafiospring.dto.RegisterProductDto;
 import com.grupo2.desafiospring.model.Product;
-import com.grupo2.desafiospring.model.ProductPurchase;
-import com.grupo2.desafiospring.service.CartService;
 import com.grupo2.desafiospring.service.ProductService;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
 @RequestMapping("/api/v1/products")
+@Validated
 public class ProductController {
 
     private final ProductService productService;
@@ -29,12 +27,12 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public List<ProductDTO> setProduct(@RequestBody List<Product> product) throws IOException {
-        return productService.addProduct(product);
+    public List<ProductDTO> addProduct(@RequestBody @Valid @NotEmpty List<RegisterProductDto> registerProductDtos) {
+        return productService.addProduct(registerProductDtos);
     }
 
     @GetMapping
-    public List<Product> getProducts(ListProductParamsDto params) {
+    public List<Product> getProducts(@Valid ListProductParamsDto params) {
         return productService.listProducts(params);
     }
 }
