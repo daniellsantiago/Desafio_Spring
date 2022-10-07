@@ -1,4 +1,4 @@
-package com.grupo2.desafiospring.annotation;
+package com.grupo2.desafiospring.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
