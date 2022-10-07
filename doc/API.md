@@ -76,12 +76,6 @@
 
   3: Menor a maior preço
 
-#### Combinação de Parâmetros permitida
-
-1. category
-2. category + freeShipping
-3. freeShipping + prestige
-
 ## Compra de Produto
 
 `POST /api/v1/purchase`

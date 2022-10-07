@@ -53,20 +53,33 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private Stream<Product> filterProducts(Stream<Product> products, ListProductParamsDto params) {
-        return products.filter(product -> {
-            if (params.getFreeShipping() != null && params.getPrestige() != null) {
-                return product.getFreeShipping() == params.getFreeShipping()
-                        && params.getPrestige().equals(product.getPrestige());
-            }
-            if (params.getCategory() != null && params.getFreeShipping() != null) {
-                return params.getCategory().equalsIgnoreCase(product.getCategory())
-                        && product.getFreeShipping() == params.getFreeShipping();
-            }
-            if (params.getCategory() != null) {
-                return params.getCategory().equalsIgnoreCase(product.getCategory());
-            }
-            return true;
-        });
+        var filteredByCategory = filterProductsByCategory(products, params);
+        var filteredByFreeShipping = filterProductsByFreeShipping(filteredByCategory, params);
+        return filterProductsByPrestige(filteredByFreeShipping, params);
+    }
+
+    private Stream<Product> filterProductsByFreeShipping(Stream<Product> products, ListProductParamsDto params) {
+        if (params == null || params.getFreeShipping() == null) {
+            return products;
+        }
+
+        return products.filter(product -> product.getFreeShipping() == params.getFreeShipping());
+    }
+
+    private Stream<Product> filterProductsByCategory(Stream<Product> products, ListProductParamsDto params) {
+        if (params == null || params.getCategory() == null) {
+            return products;
+        }
+
+        return products.filter(product -> product.getCategory().equals(params.getCategory()));
+    }
+
+    private Stream<Product> filterProductsByPrestige(Stream<Product> products, ListProductParamsDto params) {
+        if (params == null || params.getPrestige() == null) {
+            return products;
+        }
+
+        return products.filter(product -> product.getPrestige().equals(params.getPrestige()));
     }
 
     private Stream<Product> sortProducts(Integer paramOrder, Stream<Product> products) {
