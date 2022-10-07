@@ -3,7 +3,6 @@ package com.grupo2.desafiospring.controller;
 import com.grupo2.desafiospring.dto.ClientDto;
 import com.grupo2.desafiospring.dto.ListClientParamsDto;
 import com.grupo2.desafiospring.dto.RegisterClientDto;
-import com.grupo2.desafiospring.model.Client;
 import com.grupo2.desafiospring.service.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +31,7 @@ public class ClientController {
     }
 
     @GetMapping
-    public List<Client> getClients(@Valid ListClientParamsDto params) {
+    public List<ClientDto> getClients(@Valid ListClientParamsDto params) {
         return clientService.listClients(params);
     }
 
