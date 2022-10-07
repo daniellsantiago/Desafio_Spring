@@ -75,4 +75,12 @@ public class GlobalExceptionHandler {
         logger.error("BusinessRuleException: ", exception);
         return ErrorMessageResponseDto.of(exception.getErrorMessage(), exception.getErrorType());
     }
+
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessageResponseDto handleBadRequestException(BadRequestException exception) {
+        logger.error("BadRequestException: ", exception);
+        return ErrorMessageResponseDto.of(exception.getErrorMessage(), exception.getErrorType());
+    }
 }
