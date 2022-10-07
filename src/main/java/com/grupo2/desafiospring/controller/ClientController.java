@@ -2,19 +2,21 @@ package com.grupo2.desafiospring.controller;
 
 import com.grupo2.desafiospring.dto.ClientDto;
 import com.grupo2.desafiospring.dto.ListClientParamsDto;
+import com.grupo2.desafiospring.dto.RegisterClientDto;
 import com.grupo2.desafiospring.model.Client;
 import com.grupo2.desafiospring.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/clients")
+@Validated
 public class ClientController {
 
     private final ClientService clientService;
@@ -25,17 +27,17 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-        public List<ClientDto> setClient(@RequestBody List<Client> client) throws IOException {
-        return clientService.addClient(client);
+        public List<ClientDto> setClient(@RequestBody @Valid @NotEmpty List<@Valid RegisterClientDto> clientsDto) {
+        return clientService.addClient(clientsDto);
     }
 
     @GetMapping
-    public List<Client> getClients(ListClientParamsDto params) {
+    public List<Client> getClients(@Valid ListClientParamsDto params) {
         return clientService.listClients(params);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable Long id) {
-        return ResponseEntity.ok(clientService.getClientById(id));
+    public ClientDto getClientById(@PathVariable UUID id) {
+        return clientService.getClientById(id);
     }
 }

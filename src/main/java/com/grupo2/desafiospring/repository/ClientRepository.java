@@ -9,10 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -47,19 +44,14 @@ public class ClientRepository {
         return clientList;
     }
 
-    public Client getClientById(Long id) {
+    public Optional<Client> getClientById(UUID id) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        Client client = null;
-
-        try {
-            List<Client> clientList = Arrays.asList(mapper.readValue(new File(PATH_NAME), Client[].class));
-            for (Client clients : clientList) {
-                if (clients.getId().equals(id)) {
-                    return client = clients;
-                }
+        Client[] clientList = mapper.readValue(new File(PATH_NAME), Client[].class);
+        for (Client foundClient : clientList) {
+            if (foundClient.getId().equals(id)) {
+                return Optional.of(foundClient);
             }
-        } catch (Exception e) {
         }
-        return client;
+        return Optional.empty();
     }
 }

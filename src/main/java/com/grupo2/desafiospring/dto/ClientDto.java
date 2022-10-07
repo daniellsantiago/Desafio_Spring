@@ -5,13 +5,14 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClientDto implements Serializable {
-    private Long id;
+    private UUID id;
     private String name;
     private String cpf;
     private String state;
@@ -23,7 +24,16 @@ public class ClientDto implements Serializable {
         this.state = client.getState();
     }
 
-    public static List<ClientDto> convertDto(List<Client> clients) {
+    public static ClientDto toClientDto(Client client) {
+        return new ClientDto(
+                client.getId(),
+                client.getName(),
+                client.getCpf(),
+                client.getState()
+        );
+    }
+
+    public static List<ClientDto> fromClientList(List<Client> clients) {
         return clients.stream().map(ClientDto::new).collect(Collectors.toList());
     }
 }

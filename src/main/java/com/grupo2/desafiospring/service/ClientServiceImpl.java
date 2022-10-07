@@ -2,6 +2,7 @@ package com.grupo2.desafiospring.service;
 
 import com.grupo2.desafiospring.dto.ClientDto;
 import com.grupo2.desafiospring.dto.ListClientParamsDto;
+import com.grupo2.desafiospring.dto.RegisterClientDto;
 import com.grupo2.desafiospring.exception.InternalServerErrorException;
 import com.grupo2.desafiospring.exception.NotFoundException;
 import com.grupo2.desafiospring.model.Client;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientServiceImpl implements ClientService{
@@ -24,38 +26,32 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public List<Client> listClients(ListClientParamsDto params) {
         try {
-            List<Client> clients = clientRepository.getAllClients(params);
-            return clients;
+            return clientRepository.getAllClients(params);
         } catch (Exception e){
             throw new NotFoundException("Cliente não encontrado");
         }
     }
 
     @Override
-    public List<ClientDto> addClient(List<Client> client) {
-        try{
-            return ClientDto.convertDto(clientRepository.addClientRepository(client));
-        }catch(IOException e){
-            throw new InternalServerErrorException("Error trying to write products");
+    public List<ClientDto> addClient(List<RegisterClientDto> clientsDto) {
+        List<Client> clients = clientsDto.stream()
+                .map(dto -> dto.toClient(UUID.randomUUID()))
+                .collect(Collectors.toList());
+        try {
+            return ClientDto.fromClientList(clientRepository.addClientRepository(clients));
+        } catch(IOException e) {
+            throw new InternalServerErrorException("Erro ao salvar o Client");
         }
     }
 
     @Override
-    public Client getClientById(Long id) {
-        Client client = clientRepository.getClientById(id);
+    public ClientDto getClientById(UUID id) {
         try {
-            client.getId();
-        }catch (Exception e) {
-            throw new NotFoundException("Cliente não encontrado");
+            Client client = clientRepository.getClientById(id)
+                    .orElseThrow(() -> new NotFoundException("Cliente não encontrado"));
+            return ClientDto.toClientDto(client);
+        } catch (IOException exception) {
+            throw new InternalServerErrorException("Erro ao ler Client");
         }
-        return client;
-    }
-
-    private boolean validateClient(Client client) {
-        if (Objects.isNull(client.getId())) return false;
-        if (Objects.isNull(client.getName())) return false;
-        if (Objects.isNull(client.getCpf())) return false;
-        if (Objects.isNull(client.getState())) return false;
-        return true;
     }
 }
