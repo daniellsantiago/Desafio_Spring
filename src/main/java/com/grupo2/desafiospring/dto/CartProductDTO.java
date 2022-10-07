@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartProductDTO {
-    private Long productId;
+    private UUID productId;
     private String name;
     private String category;
     private String brand;

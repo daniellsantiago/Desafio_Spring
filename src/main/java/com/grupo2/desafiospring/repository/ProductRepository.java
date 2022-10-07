@@ -9,10 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class ProductRepository {
@@ -39,7 +36,7 @@ public class ProductRepository {
         return products;
     }
 
-    public List<Product> patchProduct(Long id, Integer quantity) throws IOException {
+    public List<Product> patchProduct(UUID id, Integer quantity) throws IOException {
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
         List<Product> productList = new ArrayList<>(getAllProducts());
 

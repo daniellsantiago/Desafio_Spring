@@ -7,12 +7,12 @@ import com.grupo2.desafiospring.exception.BusinessRuleException;
 import com.grupo2.desafiospring.exception.InternalServerErrorException;
 import com.grupo2.desafiospring.model.Product;
 import com.grupo2.desafiospring.repository.ProductRepository;
-import com.grupo2.desafiospring.utils.IdGenerator;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> addProduct(List<RegisterProductDto> registerProductDtos) {
         List<Product> productsToBeAdded = registerProductDtos.stream()
-                .map(dto -> dto.toProduct(IdGenerator.generateIdByClass(Product.class)))
+                .map(dto -> dto.toProduct(UUID.randomUUID()))
                 .collect(Collectors.toList());
         try{
             return ProductDTO.fromProductList(productRepository.addProducts(productsToBeAdded));

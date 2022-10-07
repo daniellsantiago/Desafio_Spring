@@ -7,6 +7,9 @@ import java.util.Arrays;
 public class PrestigeValidator implements ConstraintValidator<PrestigeValidation, String> {
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return Arrays.asList(new String[]{"*","**","***", "****", "*****"}).contains(s);
+        if (s != null) {
+            return Arrays.asList(new String[]{"*","**","***", "****", "*****"}).contains(s);
+        }
+        return true;
     }
 }
