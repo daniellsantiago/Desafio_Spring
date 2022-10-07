@@ -24,9 +24,9 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public List<Client> listClients(ListClientParamsDto params) {
+    public List<ClientDto> listClients(ListClientParamsDto params) {
         try {
-            return clientRepository.getAllClients(params);
+            return ClientDto.fromClientList(clientRepository.getAllClients(params));
         } catch (Exception e){
             throw new NotFoundException("Cliente não encontrado");
         }
