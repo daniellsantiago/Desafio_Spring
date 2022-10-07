@@ -4,7 +4,7 @@
   "category" : "Ferramentas",
   "brand" : "FORTGPRO",
   "price" : 1800.00,
-  "quantity" : 5,
+  "quantity" : 0,
   "freeShipping" : true,
   "prestige" : "****"
 }, {
@@ -13,7 +13,7 @@
   "category" : "Ferramentas",
   "brand" : "Black & Decker",
   "price" : 500,
-  "quantity" : 7,
+  "quantity" : 0,
   "freeShipping" : true,
   "prestige" : "****"
 }, {
@@ -22,7 +22,7 @@
   "category" : "Ferramentas",
   "brand" : "Black & Decker",
   "price" : 350.00,
-  "quantity" : 10,
+  "quantity" : 4,
   "freeShipping" : true,
   "prestige" : "***"
 }, {
@@ -40,7 +40,7 @@
   "category" : "Esportes",
   "brand" : "Starboard",
   "price" : 183.00,
-  "quantity" : 4,
+  "quantity" : 1,
   "freeShipping" : true,
   "prestige" : "*****"
 }, {

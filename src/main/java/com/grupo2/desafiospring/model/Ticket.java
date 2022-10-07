@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductPurchase {
-    private Long productId;
-    private Integer quantity;
+public class Ticket {
+    private Cart ticket;
 }
