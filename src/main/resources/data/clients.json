@@ -1,0 +1,96 @@
+[ {
+  "id" : 1,
+  "name" : "John",
+  "cpf" : "101.101.101-10",
+  "state" : "RS"
+}, {
+  "id" : 2,
+  "name" : "Jane",
+  "cpf" : "101.101.101-10",
+  "state" : "RG"
+}, {
+  "id" : 3,
+  "name" : "Alex",
+  "cpf" : "101.101.101-10",
+  "state" : "SP"
+}, {
+  "id" : 4,
+  "name" : "Mary",
+  "cpf" : "101.101.101-10",
+  "state" : "SP"
+}, {
+  "id" : 5,
+  "name" : "Peter",
+  "cpf" : "101.101.101-10",
+  "state" : "RS"
+}, {
+  "id" : 6,
+  "name" : "Paul",
+  "cpf" : "101.101.101-10",
+  "state" : "RS"
+}, {
+  "id" : 7,
+  "name" : "Mark",
+  "cpf" : "101.101.101-10",
+  "state" : "RJ"
+}, {
+  "id" : 8,
+  "name" : "Luke",
+  "cpf" : "101.101.101-10",
+  "state" : "RJ"
+}, {
+  "id" : 9,
+  "name" : "Julia",
+  "cpf" : "101.101.101-10",
+  "state" : "PB"
+}, {
+  "id" : 10,
+  "name" : "Matheus",
+  "cpf" : "101.101.101-10",
+  "state" : "PB"
+}, {
+  "id" : 11,
+  "name" : "Lucas",
+  "cpf" : "101.101.101-10",
+  "state" : "SC"
+}, {
+  "id" : 12,
+  "name" : "Ana",
+  "cpf" : "101.101.101-10",
+  "state" : "SC"
+}, {
+  "id" : 13,
+  "name" : "Jane",
+  "cpf" : "101.101.101-10",
+  "state" : "RN"
+}, {
+  "id" : 16,
+  "name" : "Jane",
+  "cpf" : "101.101.101-10",
+  "state" : "RN"
+}, {
+  "id" : 20,
+  "name" : "Jane",
+  "cpf" : "101.101.101-10",
+  "state" : "RN"
+}, {
+  "id" : 20,
+  "name" : "Jane",
+  "cpf" : "101.101.101-10",
+  "state" : "RN"
+}, {
+  "id" : 20,
+  "name" : "Jane",
+  "cpf" : "101.101.101-10",
+  "state" : "RN"
+}, {
+  "id" : 25,
+  "name" : "Jane",
+  "cpf" : "101.101.101-10",
+  "state" : "RN"
+}, {
+  "id" : 28,
+  "name" : "Jane",
+  "cpf" : "101.101.101-10",
+  "state" : "RN"
+} ]
