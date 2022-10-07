@@ -1,6 +1,6 @@
 package com.grupo2.desafiospring.dto;
 
-import com.grupo2.desafiospring.annotation.PrestigeValidation;
+import com.grupo2.desafiospring.validation.PrestigeValidation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
