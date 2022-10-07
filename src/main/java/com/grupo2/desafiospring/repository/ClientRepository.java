@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.grupo2.desafiospring.dto.ListClientParamsDto;
+import com.grupo2.desafiospring.exception.BusinessRuleException;
 import com.grupo2.desafiospring.model.Client;
 import org.springframework.stereotype.Repository;
 
@@ -38,10 +39,19 @@ public class ClientRepository {
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
         List<Client> clientList = new ArrayList<>(getAllClients(null));
 
+        verifyClientExists(client, clientList);
+
         clientList.addAll(client);
         writer.writeValue(new File(PATH_NAME), clientList);
 
         return clientList;
+    }
+
+    private void verifyClientExists(List<Client> client, List<Client> clientList) {
+        List<String> cpf = clientList.stream().map(Client::getCpf).collect(Collectors.toList());
+        client.forEach(c -> {
+            if (cpf.contains(c.getCpf())) throw new BusinessRuleException("Cliente já cadastrado.");
+        });
     }
 
     public Optional<Client> getClientById(UUID id) throws IOException {
