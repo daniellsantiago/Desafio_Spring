@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public class TicketRepository {
-    private final String PATH_NAME = "src/main/resources/tickets.json";
+    private final String PATH_NAME = "src/main/resources/data/tickets.json";
 
 
     private final ObjectMapper objectMapper;

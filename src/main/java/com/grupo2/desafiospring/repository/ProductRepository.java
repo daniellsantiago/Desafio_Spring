@@ -14,7 +14,7 @@ import java.util.*;
 @Repository
 public class ProductRepository {
 
-    private final String PATH_NAME = "src/main/resources/products.json";
+    private final String PATH_NAME = "src/main/resources/data/products.json";
 
     private final ObjectMapper objectMapper;
 
