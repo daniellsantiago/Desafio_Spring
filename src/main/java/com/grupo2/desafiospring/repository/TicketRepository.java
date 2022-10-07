@@ -3,8 +3,7 @@ package com.grupo2.desafiospring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.grupo2.desafiospring.model.Product;
-import com.grupo2.desafiospring.model.Ticket;
+import com.grupo2.desafiospring.dto.TicketDto;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -24,12 +23,12 @@ public class TicketRepository {
         this.objectMapper = objectMapper;
     }
 
-    public List<Ticket> getAllTickets() throws IOException {
-        return Arrays.asList(objectMapper.readValue(new File(PATH_NAME), Ticket[].class));
+    public List<TicketDto> getAllTickets() throws IOException {
+        return Arrays.asList(objectMapper.readValue(new File(PATH_NAME), TicketDto[].class));
     }
-    public Ticket addTicket(Ticket ticket) throws IOException {
+    public TicketDto addTicket(TicketDto ticket) throws IOException {
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
-        List<Ticket> ticketList = new ArrayList<>(getAllTickets());
+        List<TicketDto> ticketList = new ArrayList<>(getAllTickets());
 
         ticketList.add(ticket);
         writer.writeValue(new File(PATH_NAME), ticketList);
